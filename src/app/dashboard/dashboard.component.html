@@ -1,0 +1,61 @@
+<div class="flex h-screen">
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
+
+  <!-- Main Content Area -->
+  <main class="w-full p-8 bg-gray-100 max-h-screen overflow-y-scroll">
+    <div id="report" class="bg-white p-8 rounded shadow">
+      <h2 class="text-3xl font-bold mb-6">Account Information</h2>
+
+      <!-- Total Sales and Items Sold -->
+      <div class="grid grid-cols-2 gap-8">
+        <div class="bg-blue-200 p-6 rounded-lg">
+          <h3 class="text-xl font-semibold mb-2">Total Sales:</h3>
+          <p class="text-2xl">{{ reportData.totalSales | currency }}</p>
+        </div>
+        <div class="bg-green-200 p-6 rounded-lg">
+          <h3 class="text-xl font-semibold mb-2">Total Items Sold:</h3>
+          <p class="text-2xl">{{ reportData.totalItemsSold }}</p>
+        </div>
+      </div>
+
+      <!-- Profit and Loss -->
+      <div class="grid grid-cols-1 gap-8 mt-8">
+        <div class="bg-yellow-200 p-6 rounded-lg">
+          <h3 class="text-xl font-semibold mb-2">Profit:</h3>
+          <!-- Add logic to calculate profit -->
+          <p class="text-2xl">{{ reportData.profit | currency }}</p>
+        </div>
+      </div>
+
+      <!-- Average Selling Price -->
+      <div class="mt-8">
+        <div class="bg-purple-200 p-6 rounded-lg">
+          <h3 class="text-xl font-semibold mb-2">Average Selling Price:</h3>
+          <!-- Add logic to calculate average selling price -->
+          <p class="text-2xl">{{ reportData.avgSellingPrice | currency }}</p>
+        </div>
+      </div>
+
+      <!-- Top Selling Product -->
+      <div class="mt-8">
+        <div class="bg-indigo-200 p-6 rounded-lg">
+          <h3 class="text-xl font-semibold mb-2">Top Selling Product:</h3>
+          <!-- Add logic to determine and display the top-selling product -->
+          <p class="text-2xl">{{ reportData.topSellingProduct }}</p>
+        </div>
+      </div>
+
+      <!-- Total Customers -->
+      <div class="mt-8">
+        <div class="bg-teal-200 p-6 rounded-lg">
+          <h3 class="text-xl font-semibold mb-2">Total Customers:</h3>
+          <!-- Add logic to calculate total customers -->
+          <p class="text-2xl">{{ reportData.totalCustomers }}</p>
+        </div>
+      </div>
+
+      <!-- Add more sections for other account information as needed -->
+    </div>
+  </main>
+</div>

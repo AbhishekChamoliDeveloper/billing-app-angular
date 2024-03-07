@@ -1,0 +1,174 @@
+<div class="flex w-full">
+  <app-sidebar></app-sidebar>
+
+  <div class="flex flex-col w-full max-h-screen overflow-y-scroll">
+    <div class="w-full mx-auto px-8 relative">
+      <nav class="flex w-full fixed items-center justify-between bg-white p-5">
+        <div class="flex items-center w-full">
+          <input
+            type="text"
+            class="border p-2 rounded w-[40rem] focus:outline-blue-600"
+            placeholder="Search Your Item By Name, Category, Price & etc ..."
+            [(ngModel)]="searchText"
+          />
+          <button
+            class="bg-blue-500 text-white font-semibold text-lg py-2 px-4 rounded ml-4"
+            (click)="openAddProductModal()"
+          >
+            Add Product
+          </button>
+        </div>
+      </nav>
+
+      <div class="mt-24">
+        <div
+          *ngFor="let product of filteredProductList; let i = index"
+          class="bg-white border rounded-lg p-6 mt-10 flex items-center justify-between w-full shadow-md"
+        >
+          <div class="flex-shrink-0">
+            <img
+              [src]="product.image"
+              alt="{{ product.name }}"
+              class="w-24 h-24 object-cover rounded"
+            />
+          </div>
+
+          <div class="ml-4 flex-grow">
+            <h2 class="text-3xl font-semibold mb-2">{{ product.name }}</h2>
+            <p class="text-gray-600 mb-4">{{ product.category }}</p>
+
+            <div class="flex items-center">
+              <p class="text-green-600 font-semibold mr-4">
+                Selling Price: ${{ product.sellingPrice.toFixed(2) }}
+              </p>
+              <p class="text-gray-600">
+                Original Price: ${{ product.originalPrice.toFixed(2) }}
+              </p>
+            </div>
+          </div>
+
+          <div class="flex items-center">
+            <button
+              class="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 transition-all focus:outline-none focus:ring focus:border-blue-300"
+              (click)="openEditProductModal(i)"
+            >
+              Edit
+            </button>
+            <button
+              class="bg-red-500 text-white font-semibold py-2 px-4 rounded hover:bg-red-600 ml-4 transition-all focus:outline-none focus:ring focus:border-red-300"
+              (click)="deleteProduct(i)"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      *ngIf="showAddProductModal"
+      class="fixed inset-0 overflow-x-hidden overflow-y-auto"
+    >
+      <div
+        class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+      >
+        <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+          <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+
+        <div
+          class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+        >
+          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div class="mb-4">
+              <label
+                for="productName"
+                class="block text-sm font-bold text-gray-700"
+                >Product Name:</label
+              >
+              <input
+                type="text"
+                id="productName"
+                [(ngModel)]="newProduct.name"
+                class="mt-1 p-2 border rounded w-full"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label
+                for="productCategory"
+                class="block text-sm font-bold text-gray-700"
+                >Product Category:</label
+              >
+              <input
+                type="text"
+                id="productCategory"
+                [(ngModel)]="newProduct.category"
+                class="mt-1 p-2 border rounded w-full"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label
+                for="sellingPrice"
+                class="block text-sm font-bold text-gray-700"
+                >Selling Price:</label
+              >
+              <input
+                type="number"
+                id="sellingPrice"
+                [(ngModel)]="newProduct.sellingPrice"
+                class="mt-1 p-2 border rounded w-full"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label
+                for="originalPrice"
+                class="block text-sm font-bold text-gray-700"
+                >Original Price:</label
+              >
+              <input
+                type="number"
+                id="originalPrice"
+                [(ngModel)]="newProduct.originalPrice"
+                class="mt-1 p-2 border rounded w-full"
+              />
+            </div>
+
+            <div class="mb-4">
+              <label
+                for="productImage"
+                class="block text-sm font-bold text-gray-700"
+                >Product Image URL:</label
+              >
+              <input
+                type="text"
+                id="productImage"
+                [(ngModel)]="newProduct.image"
+                class="mt-1 p-2 border rounded w-full"
+              />
+            </div>
+          </div>
+
+          <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+            <button
+              type="button"
+              class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-500 text-white font-semibold text-sm hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+              (click)="addProduct()"
+            >
+              Add Product
+            </button>
+            <button
+              type="button"
+              class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:w-auto sm:text-sm"
+              (click)="closeAddProductModal()"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,100 @@
+<div class="flex">
+  <app-sidebar></app-sidebar>
+
+  <div class="flex flex-col w-full max-h-screen overflow-y-scroll p-8">
+    <div class="mb-8">
+      <h1 class="text-3xl font-semibold mb-2">Create Bill</h1>
+      <hr class="border-t-2 border-gray-300 mb-4" />
+    </div>
+
+    <div class="mb-8">
+      <h2 class="text-xl font-semibold mb-2">Customer Information</h2>
+      <input
+        [(ngModel)]="customerName"
+        placeholder="Customer Name"
+        class="border p-2 mb-2 mr-2"
+      />
+      <input
+        [(ngModel)]="customerMobile"
+        placeholder="Customer Mobile"
+        class="border p-2 mb-2 mr-2"
+      />
+      <input
+        [(ngModel)]="customerContact"
+        placeholder="Customer Contact"
+        class="border p-2 mb-2 mr-2"
+      />
+      <input
+        [(ngModel)]="customerAddress"
+        placeholder="Customer Address"
+        class="border p-2 mr-2"
+      />
+      <div class="mt-4">
+        <label for="paymentMode" class="mr-2">Payment Mode:</label>
+        <select id="paymentMode" [(ngModel)]="paymentMode" class="border p-2">
+          <option value="cash">Cash</option>
+          <option value="card">Card</option>
+          <option value="online">Online</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mb-8 mr-2">
+      <h2 class="text-xl font-semibold mb-2">Product Selection</h2>
+      <label for="selectedProduct">Select Product:</label>
+      <select
+        id="selectedProduct"
+        [(ngModel)]="selectedProduct"
+        class="border p-2 mb-2 mr-3 ml-2"
+      >
+        <option *ngFor="let product of productList" [value]="product.name">
+          {{ product.name }}
+        </option>
+      </select>
+      <label for="quantity">Quantity:</label>
+      <input
+        type="number"
+        id="quantity"
+        [(ngModel)]="quantity"
+        class="border p-2 mr-3 ml-2"
+      />
+      <button
+        class="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 transition-all focus:outline-none focus:ring focus:border-blue-300"
+        (click)="addProductToBill()"
+      >
+        Add to Bill
+      </button>
+    </div>
+
+    <div *ngIf="selectedProducts.length > 0" class="mb-8">
+      <h2 class="text-xl font-semibold mb-2">Selected Products</h2>
+      <ul>
+        <li *ngFor="let product of selectedProducts">
+          {{ product.name }} - Quantity: {{ product.quantity }} - Total: $
+          {{ product.totalPrice.toFixed(2) }}
+          <button
+            class="text-red-500 hover:underline ml-4"
+            (click)="removeProductFromBill(product)"
+          >
+            Remove
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="selectedProducts.length > 0" class="mb-8">
+      <h2 class="text-xl font-semibold mb-2">Total Amount</h2>
+      <div>Subtotal: $ {{ calculateSubtotal() }}</div>
+      <div>Total: $ {{ calculateTotal() }}</div>
+    </div>
+
+    <div>
+      <button
+        class="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 transition-all focus:outline-none focus:ring focus:border-blue-300"
+        (click)="saveBill()"
+      >
+        Save Bill
+      </button>
+    </div>
+  </div>
+</div>
